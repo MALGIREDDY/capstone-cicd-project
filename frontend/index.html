@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CI/CD Capstone – Deployment Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .dashboard {
+      background-color: #020617;
+      padding: 32px 40px;
+      border-radius: 12px;
+      width: 420px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+      margin-bottom: 24px;
+      font-size: 22px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+      font-size: 15px;
+    }
+
+    .ok {
+      color: #22c55e;
+      font-weight: bold;
+    }
+
+    .fail {
+      color: #ef4444;
+      font-weight: bold;
+    }
+
+    .pending {
+      color: #facc15;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <h1>CI/CD Deployment Status</h1>
+
+    <div class="row">
+      <span>Environment</span>
+      <span class="ok">Development</span>
+    </div>
+
+    <div class="row">
+      <span>Frontend</span>
+      <span class="ok">Running</span>
+    </div>
+
+    <div class="row">
+      <span>Backend</span>
+      <span id="backend-status" class="pending">Checking…</span>
+    </div>
+
+    <div class="row">
+      <span>Build Version</span>
+      <span>v1.0.0</span>
+    </div>
+
+    <footer>
+      Docker • GitHub Actions • DevOps
+    </footer>
+  </div>
+
+  <script>
+    fetch("/api/health")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("API not reachable");
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === "UP") {
+          document.getElementById("backend-status").innerHTML =
+            '<span class="ok">Healthy</span>';
+        } else {
+          document.getElementById("backend-status").innerHTML =
+            '<span class="fail">Down</span>';
+        }
+      })
+      .catch(() => {
+        document.getElementById("backend-status").innerHTML =
+          '<span class="fail">Unreachable</span>';
+      });
+  </script>
+
+</body>
+</html>
