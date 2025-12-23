@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env
+
+# Docker / logs
+*.log
+docker-compose.override.yml
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Accidental junk files (project specific)
+=
+CACHED
+exporting
+naming
+writing
+docker
+[backend
+[backend]
+[frontend]
+"\342\234\230"
+
