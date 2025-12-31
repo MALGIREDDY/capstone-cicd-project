@@ -1,3 +1,35 @@
-image: capstone-backend
-image: capstone-frontend
+services:
+  backend:
+    image: dinnusaideep/capstone-backend:latest
+    container_name: capstone-backend
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: staging
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/capstone
+    depends_on:
+      - db
+    restart: always
 
+  frontend:
+    image: dinnusaideep/capstone-frontend:latest
+    container_name: capstone-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+  db:
+    image: postgres:15
+    container_name: capstone-db
+    environment:
+      POSTGRES_DB: capstone
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:
