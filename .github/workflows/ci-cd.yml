@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-test-push:
+  build-test-scan-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,12 +22,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 🔹 Build Backend
+      # 🔹 Build Backend Image
       - name: Build backend image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest ./backend
 
-      # 🔹 Trivy Security Scan
+      # 🔹 Trivy Scan (THIS WILL RUN)
       - name: Scan backend image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
@@ -35,24 +35,23 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 1
 
-      # 🔹 Run Tests
+      # 🔹 Run Backend Tests
       - name: Run backend tests
         run: |
           docker run --rm \
             ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest \
             python -m pytest
 
-      # 🔹 Push Backend
-      - name: Push backend image
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest
-
-      # 🔹 Build Frontend
+      # 🔹 Build Frontend Image
       - name: Build frontend image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest ./frontend
 
-      # 🔹 Push Frontend
+      # 🔹 Push Images
+      - name: Push backend image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest
+
       - name: Push frontend image
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest
