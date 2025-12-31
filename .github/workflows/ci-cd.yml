@@ -25,32 +25,50 @@ jobs:
     # ================= BACKEND =================
 
     - name: Build backend image
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest ./backend
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest ./backend
 
     - name: Trivy scan backend image
       uses: aquasecurity/trivy-action@master
-      continue-on-error: true   # 👈 IMPORTANT
+      continue-on-error: true
       with:
         image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest
         severity: HIGH,CRITICAL
 
     - name: Run backend tests
-      run: docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest python -m pytest
+      run: |
+        docker run --rm \
+          ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest \
+          python -m pytest
 
     - name: Push backend image
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest
+      run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-backend:latest
 
     # ================= FRONTEND =================
 
     - name: Build frontend image
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest ./frontend
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest ./frontend
 
     - name: Trivy scan frontend image
       uses: aquasecurity/trivy-action@master
-      continue-on-error: true   # 👈 IMPORTANT
+      continue-on-error: true
       with:
         image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest
         severity: HIGH,CRITICAL
 
+    - name: Run frontend tests
+      run: |
+        docker run -d -p 8080:80 --name frontend-test \
+          ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest
+
+        sleep 5
+
+        curl -f http://localhost:8080
+
+        docker rm -f frontend-test
+
     - name: Push frontend image
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest
+      run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/capstone-frontend:latest
