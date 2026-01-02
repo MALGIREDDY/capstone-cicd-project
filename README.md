@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>CI/CD Capstone Project</title>
-
-<style>
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #0f172a;
-    color: #e5e7eb;
-    padding: 30px;
-}
-h1, h2, h3 {
-    color: #38bdf8;
-}
-.section {
-    background-color: #020617;
-    padding: 25px;
-    margin-bottom: 30px;
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-}
-pre {
-    background: #020617;
-    padding: 15px;
-    border-left: 4px solid #22d3ee;
-    overflow-x: auto;
-}
-ul li {
-    margin-bottom: 8px;
-}
-hr {
-    border: 1px solid #1e293b;
-}
-</style>
-</head>
-
-<body>
-
-<h1>🚀 CI/CD Capstone Project</h1>
+<h1> CI/CD Capstone Project</h1>
 
 <p>
 A fully automated <strong>CI/CD pipeline</strong> that builds, tests, scans, and deploys a
