@@ -6,13 +6,10 @@ if [ "$ENV" != "staging" ]; then
   exit 1
 fi
 
-echo "🚀 Deploying to STAGING environment..."
-
+echo "Deploying to STAGING environment..."
 docker compose -f docker-compose.staging.yml pull
 docker compose -f docker-compose.staging.yml down
 docker compose -f docker-compose.staging.yml up -d
-
 ./scripts/migrate_db.sh
 ./scripts/health_check.sh
-
-echo "✅ Staging deployment successful"
+echo "Staging deployment successful"
