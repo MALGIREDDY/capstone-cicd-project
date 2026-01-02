@@ -1,0 +1,10 @@
+services:
+  backend:
+    image: dinnusaideep/capstone-backend:latest
+    ports:
+      - "5000:5000"
+
+  frontend:
+    image: dinnusaideep/capstone-frontend:latest
+    ports:
+      - "3000:80"
