@@ -1,4 +1,4 @@
 #!/bin/bash
-echo "🗄️ Running database migrations (staging)..."
+echo "Running database migrations (staging)..."
 sleep 1
-echo "✅ Database migration completed"
+echo "Database migration completed"
