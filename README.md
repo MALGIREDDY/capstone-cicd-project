@@ -9,9 +9,9 @@
 
 <h3>1. What does this project do?</h3>
 <p>
-This project implements a <strong>complete, end-to-end CI/CD system</strong> that automatically
-<strong>tests, builds, scans, and deploys</strong> a <strong>2-tier web application</strong>
-through a <strong>staging environment</strong> using <strong>Docker and GitHub Actions</strong>.
+This project implements a complete, end-to-end CI/CD system that automatically
+tests, builds, scans, and deploys a 2-tier web application
+through a staging environment using Docker and GitHub Actions.
 </p>
 
 <p>The CI/CD pipeline performs the following actions automatically on every push:</p>
@@ -28,7 +28,7 @@ through a <strong>staging environment</strong> using <strong>Docker and GitHub A
 <h3>2. Why is this project important?</h3>
 <p>
 Manual deployments are slow, risky, and error-prone.
-This project demonstrates <strong>real-world DevOps automation</strong> used in enterprise environments.
+This project demonstrates real-world DevOps automation used in enterprise environments.
 </p>
 
 <p>
@@ -220,6 +220,10 @@ docker compose -f docker-compose.staging.yml up -d
 </pre>
 </div>
 
+<hr>
+
+<div class="section">
+
 <!-- =============================== -->
 <div class="section">
 <h2>I. Health Check & Verification</h2>
@@ -278,6 +282,155 @@ curl http://localhost:5000/health
 </div>
 
 <hr>
+
+<hr>
+
+<div class="section">
+<h2>M. CI/CD Commands & Execution Flow (Detailed)</h2>
+
+<p>
+This section documents <strong>all commands used during development, CI, and CD</strong>
+so that the complete automation flow is clearly understood.
+</p>
+
+<h3>1. Manual Docker Build Commands (Local Development)</h3>
+
+<p>These commands were used during local testing before automation:</p>
+
+<pre>
+docker build --no-cache -t dinnusaideep/capstone-frontend:latest ./frontend
+docker build --no-cache -t dinnusaideep/capstone-backend:latest ./backend
+</pre>
+
+<p>
+The <code>--no-cache</code> flag ensures that the image is rebuilt from scratch,
+preventing stale layers.
+</p>
+
+<h3>2. Docker Image Push to Registry (Docker Hub)</h3>
+
+<p>After successful build, images are pushed to Docker Hub:</p>
+
+<pre>
+docker push dinnusaideep/capstone-frontend:latest
+docker push dinnusaideep/capstone-backend:latest
+</pre>
+
+<p>
+These images are later pulled automatically during deployment.
+</p>
+
+<h3>3. Deployment Script Execution (Staging)</h3>
+
+<p>The following command deploys the application to the staging environment:</p>
+
+<pre>
+./scripts/deploy.sh staging
+</pre>
+
+<p>This script performs:</p>
+<ul>
+<li>Pulls latest images from Docker Hub</li>
+<li>Stops old containers</li>
+<li>Starts new containers</li>
+<li>Runs database migrations</li>
+<li>Verifies deployment using health checks</li>
+</ul>
+
+<h3>4. Script Permissions Setup</h3>
+
+<p>Execution permissions were added using:</p>
+
+<pre>
+chmod +x scripts/deploy.sh
+chmod +x scripts/health_check.sh
+chmod +x scripts/migrate_db.sh
+</pre>
+
+<h3>5. Health Verification Commands</h3>
+
+<p>Backend health is verified using:</p>
+
+<pre>
+curl http://localhost:5000/health
+</pre>
+
+<p>Expected Output:</p>
+<pre>
+{ "status": "UP" }
+</pre>
+</div>
+
+<hr>
+
+<div class="section">
+<h2>N. CI/CD Pipeline Stages (Trainer Mapping)</h2>
+
+<h3>Continuous Integration (CI)</h3>
+<ul>
+<li>Build Docker images</li>
+<li>Run unit tests inside containers</li>
+<li>Scan images using Trivy</li>
+<li>Tag images</li>
+<li>Push images to Docker Hub</li>
+</ul>
+
+<h3>Continuous Deployment (CD)</h3>
+<ul>
+<li>Triggered automatically after CI success</li>
+<li>Pulls latest images</li>
+<li>Stops existing containers</li>
+<li>Starts new containers</li>
+<li>Runs database migrations</li>
+<li>Performs health checks</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="section">
+<h2>O. Environment-Specific Configuration</h2>
+
+<p>
+This project uses <strong>separate Docker Compose files</strong> for each environment:
+</p>
+
+<ul>
+<li><strong>docker-compose.dev.yml</strong> – Development</li>
+<li><strong>docker-compose.staging.yml</strong> – Staging (CI/CD target)</li>
+<li><strong>docker-compose.prod.yml</strong> – Production-ready</li>
+</ul>
+
+<p>
+This ensures environment isolation and configuration safety.
+</p>
+
+<h3>Staging Deployment Example</h3>
+
+<pre>
+docker compose -f docker-compose.staging.yml pull
+docker compose -f docker-compose.staging.yml down
+docker compose -f docker-compose.staging.yml up -d
+</pre>
+</div>
+
+<hr>
+
+<div class="section">
+<h2>P. Deployment Script Responsibilities (Explicit)</h2>
+
+<p>The deployment script guarantees safe rollout by performing the following steps:</p>
+
+<ol>
+<li>Pull latest Docker images</li>
+<li>Stop old containers gracefully</li>
+<li>Start new containers</li>
+<li>Apply database migrations</li>
+<li>Verify backend health</li>
+<li>Mark deployment as successful</li>
+</ol>
+</div>
+
 
 <h2>Author</h2>
 <p>
