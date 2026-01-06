@@ -212,6 +212,9 @@ docker compose -f docker-compose.staging.yml up -d
 <li>Verify application health</li>
 </ul>
 
+![Deployment Pipeline](screenshots/deploy-screenshot.png)
+
+
 <h3>Command</h3>
 <pre>
 ./scripts/deploy.sh staging
