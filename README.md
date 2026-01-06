@@ -118,8 +118,6 @@ capstone-project/
 ├── frontend/
 │   ├── src/
 │   │   ├── index.html
-│   │   ├── styles.css
-│   │   └── app.js
 │   ├── nginx.conf
 │   └── Dockerfile
 │
