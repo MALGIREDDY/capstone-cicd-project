@@ -1,10 +1,29 @@
 services:
   backend:
     image: dinnusaideep/capstone-backend:latest
+    container_name: capstone-backend-dev
     ports:
-      - "5000:5000"
+      - "5001:5000"
+    environment:
+      - FLASK_ENV=development
+    depends_on:
+      - db
 
   frontend:
     image: dinnusaideep/capstone-frontend:latest
+    container_name: capstone-frontend-dev
     ports:
       - "3000:80"
+
+  db:
+    image: postgres:15
+    container_name: capstone-db-dev
+    environment:
+      POSTGRES_DB: capstone
+      POSTGRES_USER: capstone
+      POSTGRES_PASSWORD: capstone
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_dev:

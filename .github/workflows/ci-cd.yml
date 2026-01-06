@@ -1,11 +1,14 @@
-name: Fully Automated CI-CD Pipeline
+name: Fully Automated CI/CD Pipeline
 
 on:
   push:
     branches:
+      - dev
       - main
+  workflow_dispatch:
 
 jobs:
+# ---------------- CI ----------------
   ci:
     name: Build, Test, Scan, Push
     runs-on: ubuntu-latest
@@ -20,7 +23,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # ---------- BACKEND ----------
+      # Backend
       - name: Build backend image
         run: docker build -t dinnusaideep/capstone-backend:latest ./backend
 
@@ -37,7 +40,7 @@ jobs:
       - name: Push backend image
         run: docker push dinnusaideep/capstone-backend:latest
 
-      # ---------- FRONTEND ----------
+      # Frontend
       - name: Build frontend image
         run: docker build -t dinnusaideep/capstone-frontend:latest ./frontend
 
@@ -51,15 +54,43 @@ jobs:
       - name: Push frontend image
         run: docker push dinnusaideep/capstone-frontend:latest
 
-  deploy-staging:
-    name: Deploy to Staging (Auto CD)
+# ---------------- DEV DEPLOY ----------------
+  deploy-dev:
+    name: Deploy to Development
     needs: ci
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: self-hosted
+    if: github.ref == 'refs/heads/dev'
 
     steps:
-      - name: Deploy on staging server
+      - name: Deploy DEV
+        run: |
+          cd ~/capstone-project
+          git pull origin dev
+          ./scripts/deploy.sh dev
+
+# ---------------- STAGING DEPLOY ----------------
+  deploy-staging:
+    name: Deploy to Staging
+    needs: ci
+    runs-on: self-hosted
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy STAGING
         run: |
           cd ~/capstone-project
           git pull origin main
-          chmod +x scripts/*.sh
           ./scripts/deploy.sh staging
+
+# ---------------- PROD DEPLOY ----------------
+  deploy-prod:
+    name: Deploy to Production
+    needs: ci
+    runs-on: self-hosted
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Deploy PROD
+        run: |
+          cd ~/capstone-project
+          ./scripts/deploy.sh prod
