@@ -362,6 +362,11 @@ curl http://localhost:5000/health
 </pre>
 </div>
 
+## CI/CD Deployment Execution (Dev → Staging → Production)
+
+![CI/CD Deployment Pipeline](screenshots/deploy%20screenshot.png)
+
+
 <hr>
 
 <div class="section">
