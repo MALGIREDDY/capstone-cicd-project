@@ -280,31 +280,149 @@ Final confirmation that backend status is <strong>UP</strong>.
 
 <!-- =============================== -->
 <div class="section">
-<h2>K. Key Deliverables </h2>
+<!-- =============================== -->
+<div class="section">
+<h2>K. CI/CD Pipeline Flow Diagram</h2>
 
-<ul>
-<li> Working web application with database</li>
-<li> Optimized Docker images</li>
-<li> Fully automated CI/CD pipeline</li>
-<li> Staging deployment scripts</li>
-<li> Shell scripts for automation</li>
-<li> Security scanning</li>
-<li> Professional documentation</li>
-</ul>
+<p>
+This diagram represents the complete CI/CD flow executed automatically using
+GitHub Actions and a self-hosted runner.
+</p>
+<pre>
+Developer Push (GitHub)
+        |
+        v
+GitHub Actions CI Trigger
+        |
+        v
+Checkout Source Code
+        |
+        v
+Build Backend Docker Image
+        |
+        v
+Run Backend Unit Tests
+        |
+        v
+Trivy Security Scan (Backend)
+        |
+        v
+Build Frontend Docker Image
+        |
+        v
+Trivy Security Scan (Frontend)
+        |
+        v
+Push Images to Docker Hub
+        |
+        v
+CD Stage Trigger
+        |
+        v
+Self-Hosted Runner (Server)
+        |
+        v
+Deploy to Staging Environment
+        |
+        v
+Run Database Migrations
+        |
+        v
+Health Check Verification
+        |
+        v
+Deployment Success 
+</pre>
+<p>
+This flow ensures that only secure, tested, and verified images
+are deployed to the target environment.
+</p>
 </div>
 
 <!-- =============================== -->
 <div class="section">
-<h2>L. Learning Outcomes</h2>
+<h2>L. Deployment Runbook</h2>
 
+<p>
+This runbook defines the exact operational steps required to deploy,
+verify, and troubleshoot the application in a real-world environment.
+</p>
+
+<h3>1. Prerequisites</h3>
 <ul>
-<li>CI/CD pipeline design</li>
-<li>Docker best practices</li>
-<li>Security scanning with Trivy</li>
-<li>Environment-based deployments</li>
-<li>Production-grade DevOps workflows</li>
+<li>Docker & Docker Compose installed</li>
+<li>Self-hosted GitHub Actions runner running</li>
+<li>Docker Hub credentials configured</li>
+<li>Server ports 80, 5000, and 5432 available</li>
 </ul>
+
+<h3>2. Triggering a Deployment</h3>
+<p>
+A deployment is triggered automatically when code is pushed to the configured branch:
+</p>
+
+<pre>
+git add .
+git commit -m "Deploy latest changes"
+git push origin main
+</pre>
+
+<h3>3. What Happens Automatically</h3>
+<ol>
+<li>GitHub Actions CI pipeline starts</li>
+<li>Docker images are built and tested</li>
+<li>Images are scanned using Trivy</li>
+<li>Images are pushed to Docker Hub</li>
+<li>Self-hosted runner pulls latest images</li>
+<li>Old containers are stopped</li>
+<li>New containers are started</li>
+<li>Database migrations are applied</li>
+<li>Backend health is verified</li>
+</ol>
+
+<h3>4. Manual Deployment (Fallback)</h3>
+<p>
+If automation fails, deployment can be executed manually:
+</p>
+
+<pre>
+docker compose -f docker-compose.staging.yml pull
+docker compose -f docker-compose.staging.yml down
+docker compose -f docker-compose.staging.yml up -d
+</pre>
+
+<h3>5. Post-Deployment Verification</h3>
+
+<p>Frontend verification:</p>
+<pre>
+http://localhost
+</pre>
+
+<p>Backend health verification:</p>
+<pre>
+curl http://localhost:5000/health
+</pre>
+
+<p><strong>Expected Output:</strong></p>
+<pre>
+{ "status": "UP" }
+</pre>
+
+<h3>6. Rollback Strategy</h3>
+<p>
+If deployment fails:
+</p>
+<ul>
+<li>Stop current containers</li>
+<li>Re-deploy last known stable image tags</li>
+<li>Verify health endpoint</li>
+</ul>
+
+<p>
+This ensures <strong>safe recovery</strong> without downtime.
+</p>
 </div>
+
 
 <hr>
 
