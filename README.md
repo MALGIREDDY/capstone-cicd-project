@@ -212,9 +212,6 @@ docker compose -f docker-compose.staging.yml up -d
 <li>Verify application health</li>
 </ul>
 
-![Deployment Pipeline](screenshots/deploy-screenshot.png)
-
-
 <h3>Command</h3>
 <pre>
 ./scripts/deploy.sh staging
@@ -362,9 +359,9 @@ curl http://localhost:5000/health
 </pre>
 </div>
 
-## CI/CD Deployment Execution (Dev → Staging → Production)
+### Backend Health Check Output
 
-![CI/CD Deployment Pipeline](screenshots/deploy%20screenshot.png)
+![Backend Health Check](screenshots/local%20host%20health%20check.png)
 
 
 <hr>
