@@ -440,7 +440,7 @@ docker compose -f docker-compose.staging.yml up -d
 <hr>
 
 <div class="section">
-<h2>P. Deployment Script Responsibilities (Explicit)</h2>
+<h2>P. Deployment Script Responsibilities </h2>
 
 <p>The deployment script guarantees safe rollout by performing the following steps:</p>
 
