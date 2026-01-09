@@ -380,6 +380,38 @@ git push origin main
 <li>Backend health is verified</li>
 </ol>
 
+<h3>Docker Image Optimization </h3>
+
+<p>Multi-stage Docker builds were used to significantly reduce image sizes.</p>
+
+<table border="1" cellpadding="8">
+<tr>
+<th>Service</th>
+<th>Before Optimization</th>
+<th>After Optimization</th>
+</tr>
+<tr>
+<td>Backend</td>
+<td>~900–1000 MB</td>
+<td>~180 MB</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>~120 MB</td>
+<td>~25 MB</td>
+</tr>
+</table>
+
+<p>
+Optimization techniques used:
+</p>
+<ul>
+<li>Multi-stage Docker builds</li>
+<li>Minimal base images (slim / alpine)</li>
+<li>Non-root containers</li>
+</ul>
+
+
 <h3>4. Manual Deployment (Fallback)</h3>
 <p>
 If automation fails, deployment can be executed manually:
