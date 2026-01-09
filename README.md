@@ -1,4 +1,4 @@
-<h1>Capstone Project: Fully Automated CI/CD Pipeline</h1>
+<h1>Capstone Project : Fully Automated CI/CD Pipeline</h1>
 <p><strong>Docker • GitHub Actions • DevOps • CI/CD Automation</strong></p>
 
 <hr>
@@ -13,7 +13,6 @@ This project implements a complete, end-to-end CI/CD system that automatically
 tests, builds, scans, and deploys a 2-tier web application
 through a staging environment using Docker and GitHub Actions.
 </p>
-
 <p>The CI/CD pipeline performs the following actions automatically on every push:</p>
 <ul>
 <li>Builds Docker images for frontend and backend</li>
@@ -45,7 +44,7 @@ It proves understanding of:
 
 <!-- =============================== -->
 <div class="section">
-<h2>B. Core Components </h2>
+<h2>B. Core Components</h2>
 
 <ul>
 <li> 2-tier web application (Frontend + Backend)</li>
@@ -58,6 +57,7 @@ It proves understanding of:
 <li> Automated staging deployment</li>
 <li> Deployment scripts</li>
 <li> Health verification</li>
+<li> Professional documentation</li>
 </ul>
 </div>
 
@@ -218,10 +218,6 @@ docker compose -f docker-compose.staging.yml up -d
 </pre>
 </div>
 
-<hr>
-
-<div class="section">
-
 <!-- =============================== -->
 <div class="section">
 <h2>I. Health Check & Verification</h2>
@@ -235,6 +231,36 @@ curl http://localhost:5000/health
 <pre>
 { "status": "UP" }
 </pre>
+
+<h2> Deployment & Runtime Screenshots</h2>
+
+<h3> CI/CD Deployment Successful</h3>
+<p>
+This screenshot confirms that the GitHub Actions pipeline completed CI and CD successfully.
+</p>
+<img src="screenshots/deploy%20screenshot.png" alt="Deployment Screenshot" width="800">
+
+<h3>Frontend Running (http://localhost)</h3>
+<p>
+This confirms the frontend container is running and serving the UI via NGINX on port 80.
+</p>
+<img src="screenshots/local%20host%20succesfully%20output.png" alt="Frontend Output" width="800">
+
+<h3> Backend Health Endpoint (http://localhost:5000)</h3>
+<p>
+This confirms the backend Flask service is running and reachable.
+</p>
+<img src="screenshots/local%20host%205000%20.png" alt="Backend Output" width="800">
+
+<h3> Backend Health Check Verification</h3>
+<p>
+Final confirmation that backend status is <strong>UP</strong>.
+</p>
+<img src="screenshots/local%20host%20health%20check.png" alt="Health Check" width="800">
+</div>
+
+<hr>
+
 
 <p>Deployment is marked successful only after health check passes.</p>
 </div>
@@ -254,15 +280,16 @@ curl http://localhost:5000/health
 
 <!-- =============================== -->
 <div class="section">
-<h2>K. Key Deliverables (Trainer Checklist)</h2>
+<h2>K. Key Deliverables </h2>
 
 <ul>
 <li> Working web application with database</li>
-<li>Optimized Docker images</li>
-<li>Fully automated CI/CD pipeline</li>
-<li>Staging deployment scripts</li>
-<li>Shell scripts for automation</li>
-<li>Security scanning</li>
+<li> Optimized Docker images</li>
+<li> Fully automated CI/CD pipeline</li>
+<li> Staging deployment scripts</li>
+<li> Shell scripts for automation</li>
+<li> Security scanning</li>
+<li> Professional documentation</li>
 </ul>
 </div>
 
@@ -281,13 +308,11 @@ curl http://localhost:5000/health
 
 <hr>
 
-<hr>
-
 <div class="section">
-<h2>M. CI/CD Commands & Execution Flow (Detailed)</h2>
+<h2>M. CI/CD Commands & Execution Flow</h2>
 
 <p>
-This section documents <strong>all commands used during development, CI, and CD</strong>
+This section documents all commands used during development, CI, and CD
 so that the complete automation flow is clearly understood.
 </p>
 
@@ -359,15 +384,10 @@ curl http://localhost:5000/health
 </pre>
 </div>
 
-### Backend Health Check Output
-
-![Backend Health Check](screenshots/local%20host%20health%20check.png)
-
-
 <hr>
 
 <div class="section">
-<h2>N. CI/CD Pipeline Stages (Trainer Mapping)</h2>
+<h2>N. CI/CD Pipeline Stages </h2>
 
 <h3>Continuous Integration (CI)</h3>
 <ul>
@@ -395,7 +415,7 @@ curl http://localhost:5000/health
 <h2>O. Environment-Specific Configuration</h2>
 
 <p>
-This project uses <strong>separate Docker Compose files</strong> for each environment:
+This project uses separate Docker Compose files for each environment:
 </p>
 
 <ul>
@@ -433,8 +453,6 @@ docker compose -f docker-compose.staging.yml up -d
 <li>Mark deployment as successful</li>
 </ol>
 </div>
-
-
 <h2>Author</h2>
 <p>
 <strong>Saideep Malgireddy</strong><br>
@@ -443,3 +461,4 @@ GitHub: <a href="https://github.com/MALGIREDDY">https://github.com/MALGIREDDY</a
 
 </body>
 </html>
+
