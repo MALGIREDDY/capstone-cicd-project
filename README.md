@@ -282,6 +282,12 @@ Final confirmation that backend status is <strong>UP</strong>.
 <div class="section">
 <!-- =============================== -->
 <div class="section">
+
+<h2>WATCH DEMO VIDEO </h2>
+<a href="https://drive.google.com/file/d/1afRPhkBaQb9m-YugjY96digyLzxkHyV4/view?usp=drive_link">
+CLICK HERE FOR VIDEO 
+</a>
+
 <h2>K. CI/CD Pipeline Flow Diagram</h2>
 
 <p>
@@ -537,32 +543,13 @@ curl http://localhost:5000/health
 <hr>
 
 <div class="section">
-<h2>N. CI/CD Pipeline Stages </h2>
-
-<h3>Continuous Integration (CI)</h3>
-<ul>
-<li>Build Docker images</li>
-<li>Run unit tests inside containers</li>
-<li>Scan images using Trivy</li>
-<li>Tag images</li>
-<li>Push images to Docker Hub</li>
-</ul>
-
-<h3>Continuous Deployment (CD)</h3>
-<ul>
-<li>Triggered automatically after CI success</li>
-<li>Pulls latest images</li>
-<li>Stops existing containers</li>
-<li>Starts new containers</li>
-<li>Runs database migrations</li>
-<li>Performs health checks</li>
 </ul>
 </div>
 
 <hr>
 
 <div class="section">
-<h2>O. Environment-Specific Configuration</h2>
+<h2>N. Environment-Specific Configuration</h2>
 
 <p>
 This project uses separate Docker Compose files for each environment:
@@ -586,21 +573,8 @@ docker compose -f docker-compose.staging.yml down
 docker compose -f docker-compose.staging.yml up -d
 </pre>
 </div>
-
 <hr>
-
 <div class="section">
-<h2>P. Deployment Script Responsibilities </h2>
-
-<p>The deployment script guarantees safe rollout by performing the following steps:</p>
-
-<ol>
-<li>Pull latest Docker images</li>
-<li>Stop old containers gracefully</li>
-<li>Start new containers</li>
-<li>Apply database migrations</li>
-<li>Verify backend health</li>
-<li>Mark deployment as successful</li>
 </ol>
 </div>
 <h2>Author</h2>
