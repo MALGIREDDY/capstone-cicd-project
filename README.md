@@ -284,7 +284,7 @@ Final confirmation that backend status is <strong>UP</strong>.
 <div class="section">
 
 <h2>WATCH DEMO VIDEO </h2>
-<a href="https://drive.google.com/file/d/1afRPhkBaQb9m-YugjY96digyLzxkHyV4/view?usp=drive_link">
+<a href="https://drive.google.com/file/d/15nF2LAWK7WLNymGwmY-QR3GWHEUZSF3P/view?usp=drive_link">
 CLICK HERE FOR VIDEO 
 </a>
 
