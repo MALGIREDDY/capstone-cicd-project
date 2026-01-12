@@ -283,11 +283,6 @@ Final confirmation that backend status is <strong>UP</strong>.
 <!-- =============================== -->
 <div class="section">
 
-<h2>WATCH DEMO VIDEO </h2>
-<a href="https://drive.google.com/file/d/15nF2LAWK7WLNymGwmY-QR3GWHEUZSF3P/view?usp=drive_link">
-CLICK HERE FOR VIDEO 
-</a>
-
 <h2>K. CI/CD Pipeline Flow Diagram</h2>
 
 <p>
@@ -577,6 +572,12 @@ docker compose -f docker-compose.staging.yml up -d
 <div class="section">
 </ol>
 </div>
+
+<h2>WATCH DEMO VIDEO </h2>
+<a href="https://drive.google.com/file/d/15nF2LAWK7WLNymGwmY-QR3GWHEUZSF3P/view?usp=drive_link">
+CLICK HERE FOR VIDEO 
+</a>
+
 <h2>Author</h2>
 <p>
 <strong>Saideep Malgireddy</strong><br>
